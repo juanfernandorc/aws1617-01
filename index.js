@@ -6,13 +6,34 @@ var dbFileName = path.join(__dirname, "projects.json");
 
 var db = new dataStore({filename: dbFileName,autoload: true});
 
+db.insert([{
+        id: "1",
+        titulo: "Proyecto 1",
+        resumen: "Resumen proyecto 1",
+        objetivo: "Objetivo proyecto 1",
+        universidad: "Universidad de Sevilla",
+        grupo: "G11",
+        investigador: "Pepe Sanchez",
+        presupuesto: "11000"
+    }, {
+        id: "2",
+        titulo: "Proyecto 2",
+        resumen: "Resumen proyecto 2",
+        objetivo: "Objetivo proyecto 2",
+        universidad: "Universidad de Cadiz",
+        grupo: "G22",
+        investigador: "Antonio Ramirez",
+        presupuesto: "12000"
+    }]);
+
+
 var port = (process.env.PORT || 3000);
 var app = express();
 var baseAPI = "/api/v1";
 
-//var projects = [];
-
 app.use(bodyParser.json());
+
+app.use("/",express.static(path.join(__dirname, "public")));
 
 //Projects
 
@@ -81,6 +102,6 @@ app.delete(baseAPI + "/projects/:id", (request,response) => {
     
 
 
-
-app.listen(port, () => {console.log("Server up and running!");});
+app.listen(port, () => {console.log("Gui ready!");});
+app.listen(port, () => {console.log("Server with GUI up and running!");});
 
