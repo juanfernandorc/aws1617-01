@@ -1,0 +1,52 @@
+<html ng-app="ProjectListApp">
+    <head>
+        <title>My app</title>
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" type="text/css" />
+        <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+        <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
+        <script type="text/javascript" src="project-list-app.js"></script>
+        <script type="text/javascript" src="list-ctrl.js"></script>
+    </head>
+    <body>
+        <h1>Proyectos</h1>
+        <table class="table" ng-controller="ListCtrl">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Título</th>
+                    <th>Resumen</th>
+                    <th>Objetivo</th>
+                    <th>Universidad</th>
+                    <th>Grupo</th>
+                    <th>Investigador</th>
+                    <th>Presupuesto</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input class="form-control" type="text" ng-model="newProject.id"/></td>
+                    <td><input class="form-control" type="text" ng-model="newProject.titulo"/></td>
+                    <td><input class="form-control" type="text" ng-model="newProject.resumen"/></td>
+                    <td><input class="form-control" type="text" ng-model="newProject.objetivo"/></td>
+                    <td><input class="form-control" type="text" ng-model="newProject.universidad"/></td>
+                    <td><input class="form-control" type="text" ng-model="newProject.grupo"/></td>
+                    <td><input class="form-control" type="text" ng-model="newProject.investigador"/></td>
+                    <td><input class="form-control" type="text" ng-model="newProject.presupuesto"/></td>
+                    <td><button class="btn btn-primary" ng-click="addProject()">Add</button></td>
+                </tr>
+                <tr ng-repeat="project in projects">
+                    <td>{{project.id}}</td>
+                    <td>{{project.titulo}}</td>
+                    <td>{{project.resumen}}</td>
+                    <td>{{project.objetivo}}</td>
+                    <td>{{project.universidad}}</td>
+                    <td>{{project.grupo}}</td>
+                    <td>{{project.investigador}}</td>
+                    <td>{{project.presupuesto}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
