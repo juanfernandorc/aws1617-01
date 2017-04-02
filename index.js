@@ -59,7 +59,7 @@ app.put(baseAPI + "/projects/:id", (request,response) => {
     console.log("UPDATE /projects/" + id);
     var updatedProject = request.body;
     
-    db.update({id:id},updatedContact,{},(err,numUpdates) => {
+    db.update({id:id},updatedProject,{},(err,numUpdates) => {
         console.log("Projects updated:"+numUpdates);
         if (numUpdates == 0)
             response.sendStatus(404);    
