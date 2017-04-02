@@ -17,69 +17,66 @@ app.use(bodyParser.json());
 //Projects
 
 app.get(baseAPI + "/projects", (request,response) => {
+    console.log("GET projects");
     //var projects;
     db.find({}, (err, projects) => {
         response.send(projects);
     });
-    console.log("GET projects");
-    });
+});
     
 app.post(baseAPI + "/projects", (request,response) => {
+    console.log("POST /projects");
     var project = request.body;
     //projects.push(project);
     db.insert(project);
     response.sendStatus(201);
-    console.log("POST /projects");
-    });
+});
     
 app.delete(baseAPI + "/projects", (request,response) => {
-    projects = [];
-    response.sendStatus(200);
     console.log("DELETE /projects");
+    db.remove({},{},(err,numRemoved) => {
+        console.log("Projects deleted:" + numRemoved);
+        response.sendStatus(200);
     });
+});
     
 //Project
 
 app.get(baseAPI + "/projects/:id", (request,response) => {
     var id = request.params.id;
-    
-     var project = projects.filter((project) => {
-        return (project.id == id);
-    })[0];
-    
-    if (project)
-        response.send(project);
-    else 
-        response.sendStatus(400);
-        
     console.log("GET /projects/" + id);
+
+    db.find({id:id},(err,projects)=>{
+        if (projects.length == 0)
+            response.sendStatus(404);
+        else
+            response.send(projects[0]);  
+    });
     });
     
 app.put(baseAPI + "/projects/:id", (request,response) => {
     var id = request.params.id;
+    console.log("UPDATE /projects/" + id);
     var updatedProject = request.body;
     
-    projects = projects.map((project) => {
-        if (project.id == id) {
-        return updatedProject;
-        }
-        else { 
-        return project;
-        }
-    }
-    );
-    
-    response.sendStatus(200);
-    console.log("UPDATE /projects/" + id);
+    db.update({id:id},updatedContact,{},(err,numUpdates) => {
+        console.log("Projects updated:"+numUpdates);
+        if (numUpdates == 0)
+            response.sendStatus(404);    
+        else
+            response.sendStatus(200);    
+    });
     });
     
 app.delete(baseAPI + "/projects/:id", (request,response) => {
     var id = request.params.id;
-    projects = projects.filter((project) => {
-        return (project.id != id);
+    console.log("DELETE /projects/" + id);
+    
+    db.remove({id:id},{ multi: true},(err,numRemoved)=>{
+        console.log("Project removed:"+numRemoved);
+        response.sendStatus(200);    
     });
-    response.sendStatus(200);
-    console.log("DELETE /project/" + id);
+    
     });
     
 
