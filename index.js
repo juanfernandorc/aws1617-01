@@ -34,7 +34,7 @@ app.post(baseAPI + "/projects", (request,response) => {
     
 app.delete(baseAPI + "/projects", (request,response) => {
     console.log("DELETE /projects");
-    db.remove({},{},(err,numRemoved) => {
+    db.remove({},{multi: true},(err,numRemoved) => {
         console.log("Projects deleted:" + numRemoved);
         response.sendStatus(200);
     });
