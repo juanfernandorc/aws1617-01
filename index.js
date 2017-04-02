@@ -102,6 +102,5 @@ app.delete(baseAPI + "/projects/:id", (request,response) => {
     
 
 
-app.listen(port, () => {console.log("Gui ready!");});
 app.listen(port, () => {console.log("Server with GUI up and running!");});
 
