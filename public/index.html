@@ -13,7 +13,7 @@
         <table class="table" ng-controller="ListCtrl">
             <thead>
                 <tr>
-                    <th>Identificador</th>
+                    <th>Id Proyecto</th>
                     <th>Título</th>
                     <th>Resumen</th>
                     <th>Objetivo</th>
@@ -34,7 +34,10 @@
                     <td><input class="form-control" type="text" ng-model="newProject.grupo"/></td>
                     <td><input class="form-control" type="text" ng-model="newProject.investigador"/></td>
                     <td><input class="form-control" type="text" ng-model="newProject.presupuesto"/></td>
-                    <td><button class="btn btn-primary" ng-click="addProject()">Add</button></td>
+                    <td>
+                        <button class="btn btn-primary" ng-click="addProject()">Add</button>
+                        <button class="btn btn-primary" ng-click="deleteProject()">Del</button>
+                    </td>
                 </tr>
                 <tr ng-repeat="project in projects">
                     <td>{{project.id}}</td>
@@ -45,6 +48,13 @@
                     <td>{{project.grupo}}</td>
                     <td>{{project.investigador}}</td>
                     <td>{{project.presupuesto}}</td>
+                    <td>
+                    </td>
+                </tr>
+                 <tr>
+                    <td colspan="9">
+                        <button class="btn btn-primary" ng-click="deleteProjects()">Delete All</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
