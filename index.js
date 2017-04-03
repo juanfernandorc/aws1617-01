@@ -71,7 +71,7 @@ app.get(baseAPI + "/projects/:id", (request,response) => {
         if (projects.length == 0)
             response.sendStatus(404);
         else
-            response.send(projects[0]);  
+            response.send(projects);  
     });
     });
     
