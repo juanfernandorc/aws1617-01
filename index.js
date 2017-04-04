@@ -6,6 +6,7 @@ var dbFileName = path.join(__dirname, "projects.json");
 
 var db = new dataStore({filename: dbFileName,autoload: true});
 
+/*
 db.insert([{
         id: "1",
         titulo: "Proyecto 1",
@@ -25,7 +26,7 @@ db.insert([{
         investigador: "Antonio Ramirez",
         presupuesto: "12000"
     }]);
-
+*/
 
 var port = (process.env.PORT || 3000);
 var app = express();

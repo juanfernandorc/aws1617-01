@@ -21,7 +21,6 @@
                     <th>Grupo</th>
                     <th>Investigador</th>
                     <th>Presupuesto</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,12 +33,15 @@
                     <td><input class="form-control" type="text" ng-model="newProject.grupo"/></td>
                     <td><input class="form-control" type="text" ng-model="newProject.investigador"/></td>
                     <td><input class="form-control" type="text" ng-model="newProject.presupuesto"/></td>
-                    <td>
-                        <button class="btn btn-primary" ng-click="addProject()">Add</button>
-                        <button class="btn btn-primary" ng-click="deleteProject()">Del</button>
+                </tr>
+                <tr>
+                    <td colspan="8">
+                        <B>Actions:</B>
+                        <button class="btn btn-primary" ng-click="addProject()">Insertar</button>
+                        <button class="btn btn-primary" ng-click="actualizaProjects()">Actualizar</button>
+                        <button class="btn btn-primary" ng-click="deleteProject()">Borrar</button>
                         <button class="btn btn-primary" ng-click="getProject()">Buscar Id</button>
                         <button class="btn btn-primary" ng-click="getProjects()">Mostrar Todo</button>
-                        <button class="btn btn-primary" ng-click="actualizaProjects()">Actualiza</button>
                     </td>
                 </tr>
                 <tr ng-repeat="project in projects">
@@ -51,12 +53,31 @@
                     <td>{{project.grupo}}</td>
                     <td>{{project.investigador}}</td>
                     <td>{{project.presupuesto}}</td>
-                    <td>
-                    </td>
                 </tr>
                  <tr>
-                    <td colspan="9">
-                        <button class="btn btn-primary" ng-click="deleteProjects()">Delete All</button>
+                    <td colspan="8">
+                        <button class="btn btn-primary" ng-click="deleteProjects()">Borrar Todo</button>
+                    </td>
+                </tr>
+                <!--
+                <tr>
+                    <td colspan="8">
+                       <a href="/test.html">Link Acceso a Tests Postman</a>
+                    </td>
+                </tr>
+                -->
+                 <tr>
+                    <td colspan="8">
+                            <div class="postman-run-button" data-postman-action="collection/import" data-postman-var-1="dda4bfb13874abe4368e"/>
+                        <script type="text/javascript">
+                          (function (p,o,s,t,m,a,n) {
+                            !p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });
+                            !o.getElementById(s+t) && o.getElementsByTagName("head")[0].appendChild((
+                              (n = o.createElement("script")),
+                              (n.id = s+t), (n.async = 1), (n.src = m), n
+                            ));
+                          }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
+                        </script>
                     </td>
                 </tr>
             </tbody>

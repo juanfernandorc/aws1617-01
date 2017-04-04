@@ -5,33 +5,29 @@ angular.module("ProjectListApp").controller("ListCtrl", function($scope,$http) {
         $scope.projects = response.data;
         });
     }
+    function reset(){
+              $scope.newProject.id="";
+              $scope.newProject.titulo="";
+              $scope.newProject.resumen="";
+              $scope.newProject.objetivo="";
+              $scope.newProject.universidad="";
+              $scope.newProject.grupo="";
+              $scope.newProject.investigador="";
+              $scope.newProject.presupuesto="";
+    }
     
     $scope.addProject = function () {
       console.log($scope.newProject);  
       $http.put("/api/v1/projects/" + $scope.newProject.id, $scope.newProject).then(
     function (response) {
     // This function handles success
-              $scope.newProject.id="";
-              $scope.newProject.titulo="";
-              $scope.newProject.resumen="";
-              $scope.newProject.objetivo="";
-              $scope.newProject.universidad="";
-              $scope.newProject.grupo="";
-              $scope.newProject.investigador="";
-              $scope.newProject.presupuesto="";
+        reset();
         refresh();
     }, 
     function (response) {
     // this function handles error
          $http.post("/api/v1/projects",$scope.newProject).then(function (){
-              $scope.newProject.id="";
-              $scope.newProject.titulo="";
-              $scope.newProject.resumen="";
-              $scope.newProject.objetivo="";
-              $scope.newProject.universidad="";
-              $scope.newProject.grupo="";
-              $scope.newProject.investigador="";
-              $scope.newProject.presupuesto="";
+             reset();
             refresh();
             });
     });
@@ -40,6 +36,7 @@ angular.module("ProjectListApp").controller("ListCtrl", function($scope,$http) {
     
     $scope.deleteProjects = function () {
       $http.delete("/api/v1/projects").then(function (){
+                 reset();
         refresh();
         });
     };
@@ -50,43 +47,25 @@ angular.module("ProjectListApp").controller("ListCtrl", function($scope,$http) {
         $http.delete("/api/v1/projects/" + $scope.newProject.id, $scope.newProject).then(
             function (response) {
                 // This function handles success
-                  $scope.newProject.id="";
-                  $scope.newProject.titulo="";
-                  $scope.newProject.resumen="";
-                  $scope.newProject.objetivo="";
-                  $scope.newProject.universidad="";
-                  $scope.newProject.grupo="";
-                  $scope.newProject.investigador="";
-                  $scope.newProject.presupuesto="";
+                 reset();
                 refresh();
             }, 
             function (response) {
                 // this function handles error
-                  $scope.newProject.id="";
-                  $scope.newProject.titulo="";
-                  $scope.newProject.resumen="";
-                  $scope.newProject.objetivo="";
-                  $scope.newProject.universidad="";
-                  $scope.newProject.grupo="";
-                  $scope.newProject.investigador="";
-                  $scope.newProject.presupuesto="";
+                 reset();
                  refresh();
             });
     };
     
     $scope.getProject = function () 
     {
-        $http.get("/api/v1/projects/" + $scope.newProject.id).then(
-            function (response) {
-                // This function handles success
+        $http.get("/api/v1/projects/" + $scope.newProject.id).then(function (response) {
+                 // This function handles success
                 var resultProjects = response.data;
                 $scope.projects = [];
-               
-                    $scope.projects = resultProjects;
-                
-                
+                $scope.projects = resultProjects;
             }
-            , 
+            ,
             function (response) {
                 // this function handles error
                 $scope.projects = [];
@@ -97,6 +76,7 @@ angular.module("ProjectListApp").controller("ListCtrl", function($scope,$http) {
     {
         $http.get("/api/v1/projects").then(function (response) {
                  $scope.projects = response.data;
+                 reset();
             });
     };
     
@@ -104,26 +84,12 @@ angular.module("ProjectListApp").controller("ListCtrl", function($scope,$http) {
     {
         $http.put("/api/v1/projects/" + $scope.newProject.id, $scope.newProject).then( function (response) {
                 // This function handles success
-                 $scope.newProject.id="";
-                  $scope.newProject.titulo="";
-                  $scope.newProject.resumen="";
-                  $scope.newProject.objetivo="";
-                  $scope.newProject.universidad="";
-                  $scope.newProject.grupo="";
-                  $scope.newProject.investigador="";
-                  $scope.newProject.presupuesto="";
+                reset();
                 refresh();
             }, 
             function (response) {
                 // this function handles error
-                 $scope.newProject.id="";
-                  $scope.newProject.titulo="";
-                  $scope.newProject.resumen="";
-                  $scope.newProject.objetivo="";
-                  $scope.newProject.universidad="";
-                  $scope.newProject.grupo="";
-                  $scope.newProject.investigador="";
-                  $scope.newProject.presupuesto="";
+                 reset();
                  refresh();
             });
     };
