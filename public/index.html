@@ -34,6 +34,7 @@
                     <td><input class="form-control" type="text" ng-model="newProject.investigador"/></td>
                     <td><input class="form-control" type="text" ng-model="newProject.presupuesto"/></td>
                 </tr>
+                <!--
                 <tr>
                     <td colspan="8">
                         <B>Actions:</B>
@@ -42,6 +43,17 @@
                         <button class="btn btn-primary" ng-click="deleteProject()">Borrar</button>
                         <button class="btn btn-primary" ng-click="getProject()">Buscar Id</button>
                         <button class="btn btn-primary" ng-click="getProjects()">Mostrar Todo</button>
+                    </td>
+                </tr>
+                -->
+                <tr>
+                    <td colspan="8">
+                        <B>Actions:</B>
+                        <button class="btn btn-primary" ng-click="addProject()">Insert</button>
+                        <button class="btn btn-primary" ng-click="actualizaProjects()">Update</button>
+                        <button class="btn btn-primary" ng-click="deleteProject()">Delete</button>
+                        <button class="btn btn-primary" ng-click="getProject()">Find Id</button>
+                        <button class="btn btn-primary" ng-click="getProjects()">Show All</button>
                     </td>
                 </tr>
                 <tr ng-repeat="project in projects">
