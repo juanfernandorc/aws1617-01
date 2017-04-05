@@ -9,9 +9,22 @@
   },
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/juanfernandorc/aws1617-01.git",
+    "github": "https://github.com/juanfernandorc/aws1617-01"
+  },
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "nedb": "^1.8.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-mocha-test": "^0.13.2",
+    "mocha": "^3.2.0"
   }
 }

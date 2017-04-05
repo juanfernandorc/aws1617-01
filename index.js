@@ -1,10 +1,11 @@
+"use strict";
 var express = require("express");
 var bodyParser = require("body-parser");
-var dataStore = require("nedb");
+var DataStore = require("nedb");
 var path = require("path");
 var dbFileName = path.join(__dirname, "projects.json");
 
-var db = new dataStore({filename: dbFileName,autoload: true});
+var db = new DataStore({filename: dbFileName,autoload: true});
 
 /*
 db.insert([{
@@ -69,10 +70,12 @@ app.get(baseAPI + "/projects/:id", (request,response) => {
     console.log("GET /projects/" + id);
 
     db.find({id:id},(err,projects)=>{
-        if (projects.length == 0)
+        if (projects.length === 0) {
             response.sendStatus(404);
-        else
+        }
+        else {
             response.send(projects);  
+        }
     });
     });
     
@@ -83,10 +86,12 @@ app.put(baseAPI + "/projects/:id", (request,response) => {
     
     db.update({id:id},updatedProject,{},(err,numUpdates) => {
         console.log("Projects updated:"+numUpdates);
-        if (numUpdates == 0)
+        if (numUpdates === 0) {
             response.sendStatus(404);    
-        else
+        }
+        else {
             response.sendStatus(200);    
+        }
     });
     });
     
