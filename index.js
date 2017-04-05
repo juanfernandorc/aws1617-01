@@ -1,11 +1,13 @@
 "use strict";
 var express = require("express");
 var bodyParser = require("body-parser");
-var DataStore = require("nedb");
 var path = require("path");
+/*
+var DataStore = require("nedb");
 var dbFileName = path.join(__dirname, "projects.json");
-
 var db = new DataStore({filename: dbFileName,autoload: true});
+*/
+var dbProjects = require(path.join(__dirname, "projects.js"));
 
 /*
 db.insert([{
@@ -42,7 +44,12 @@ app.use("/",express.static(path.join(__dirname, "public")));
 app.get(baseAPI + "/projects", (request,response) => {
     console.log("GET projects");
     //var projects;
+    /*
     db.find({}, (err, projects) => {
+        response.send(projects);
+    });
+    */
+    dbProjects.allProjects((err, projects) => {
         response.send(projects);
     });
 });
@@ -50,14 +57,22 @@ app.get(baseAPI + "/projects", (request,response) => {
 app.post(baseAPI + "/projects", (request,response) => {
     console.log("POST /projects");
     var project = request.body;
-    //projects.push(project);
+    /*
     db.insert(project);
+    */
+    dbProjects.add(project);
     response.sendStatus(201);
 });
     
 app.delete(baseAPI + "/projects", (request,response) => {
     console.log("DELETE /projects");
+    /*
     db.remove({},{multi: true},(err,numRemoved) => {
+        console.log("Projects deleted:" + numRemoved);
+        response.sendStatus(200);
+    });
+    */
+    dbProjects.removeAll((err,numRemoved) => {
         console.log("Projects deleted:" + numRemoved);
         response.sendStatus(200);
     });
@@ -68,7 +83,8 @@ app.delete(baseAPI + "/projects", (request,response) => {
 app.get(baseAPI + "/projects/:id", (request,response) => {
     var id = request.params.id;
     console.log("GET /projects/" + id);
-
+    
+    /*
     db.find({id:id},(err,projects)=>{
         if (projects.length === 0) {
             response.sendStatus(404);
@@ -77,13 +93,23 @@ app.get(baseAPI + "/projects/:id", (request,response) => {
             response.send(projects);  
         }
     });
+    */
+    dbProjects.get(id,(err,projects)=>{
+        if (projects.length === 0) {
+            response.sendStatus(404);
+        }
+        else {
+            response.send(projects);  
+        }
+    });
+    
     });
     
 app.put(baseAPI + "/projects/:id", (request,response) => {
     var id = request.params.id;
     console.log("UPDATE /projects/" + id);
     var updatedProject = request.body;
-    
+    /*
     db.update({id:id},updatedProject,{},(err,numUpdates) => {
         console.log("Projects updated:"+numUpdates);
         if (numUpdates === 0) {
@@ -93,14 +119,32 @@ app.put(baseAPI + "/projects/:id", (request,response) => {
             response.sendStatus(200);    
         }
     });
+    */
+    dbProjects.update(id,updatedProject, (err,numUpdates) => {
+        console.log("Projects updated:"+numUpdates);
+        if (numUpdates === 0) {
+            response.sendStatus(404);    
+        }
+        else {
+            response.sendStatus(200);    
+        }
+    });
+    
+    
     });
     
 app.delete(baseAPI + "/projects/:id", (request,response) => {
     var id = request.params.id;
     console.log("DELETE /projects/" + id);
-    
+    /*
     db.remove({id:id},{ multi: true},(err,numRemoved)=>{
-        console.log("Project removed:"+numRemoved);
+        console.log("Projects removed:"+numRemoved);
+        response.sendStatus(200);    
+    });
+    */
+    
+    dbProjects.remove(id,(err,numRemoved)=>{
+        console.log("Projects removed:"+numRemoved);
         response.sendStatus(200);    
     });
     
