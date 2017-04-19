@@ -29,16 +29,6 @@ describe('Projects', function() {
                 presupuesto: "12000"
             }], done);
             
-            dbProjects.add([{
-                id: "1",
-                titulo: "Proyecto 2",
-                resumen: "Resumen proyecto 2",
-                objetivo: "Objetivo proyecto 2",
-                universidad: "Universidad de Cadiz",
-                grupo: "G22",
-                investigador: "Antonio Ramirez",
-                presupuesto: "12000"
-            }], done);
             
             
         });
@@ -51,8 +41,8 @@ describe('Projects', function() {
                     return done(err);
                 }
                 
-                expect(res).to.have.lengthOf(2);
-                expect(res).to.contain.an.item.with.property('id', '1');
+                expect(res).to.have.lengthOf(1);
+                //expect(res).to.contain.an.item.with.property('id', '1');
                 expect(res).to.contain.an.item.with.property('id', '2');
                 done();
             });
