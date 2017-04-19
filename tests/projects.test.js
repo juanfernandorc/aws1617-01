@@ -19,6 +19,15 @@ describe('Projects', function() {
             }
             
             dbProjects.add([{
+                id: "1",
+                titulo: "Proyecto 1",
+                resumen: "Resumen proyecto 1",
+                objetivo: "Objetivo proyecto 1",
+                universidad: "Universidad de Sevilla",
+                grupo: "G11",
+                investigador: "Antonio Perez",
+                presupuesto: "11000"
+            }, {
                 id: "2",
                 titulo: "Proyecto 2",
                 resumen: "Resumen proyecto 2",
@@ -41,8 +50,8 @@ describe('Projects', function() {
                     return done(err);
                 }
                 
-                expect(res).to.have.lengthOf(1);
-                //expect(res).to.contain.an.item.with.property('id', '1');
+                expect(res).to.have.lengthOf(2);
+                expect(res).to.contain.an.item.with.property('id', '1');
                 expect(res).to.contain.an.item.with.property('id', '2');
                 done();
             });
