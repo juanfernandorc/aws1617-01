@@ -1,26 +1,15 @@
 "use strict";
 
-var MongoClient = require('mongodb').MongoClient;
-var db;
+var DataStore = require("nedb");
+var path = require("path");
+var dbFileName = path.join(__dirname, "projects.json");
 
+var db = new DataStore({filename: dbFileName,autoload: true});
 
 var DBProjects = function() {};
 
-DBProjects.prototype.connectDb = function(callback) {
-    MongoClient.connect(process.env.MONGODB_URL, function(err, database) {
-        if(err) {
-            callback(err);
-        }
-        
-        db = database.collection('projects');
-        
-        callback(err, database);
-    });
-};
-
-
 DBProjects.prototype.allProjects = function(callback) {
-    return db.find({}).toArray(callback);
+    return db.find({}, callback);
 };
 
 DBProjects.prototype.add = function(project, callback) {
@@ -32,7 +21,7 @@ DBProjects.prototype.removeAll = function(callback) {
 };
 
 DBProjects.prototype.get = function(id, callback) {
-    return db.find({id:id}).toArray(callback);
+    return db.find({id:id}, callback);
 };
 
 DBProjects.prototype.remove = function(id, callback) {
