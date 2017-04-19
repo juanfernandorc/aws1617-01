@@ -150,7 +150,14 @@ app.delete(baseAPI + "/projects/:id", (request,response) => {
     
     });
     
+    dbProjects.connectDb((err) => {
+        if(err){
+            console.log("Could not connect with MongoDB");
+            process.exist(1);
+        }
+        app.listen(port, () => {console.log("Server with GUI up and running!");
+        
+    });
 
 
-app.listen(port, () => {console.log("Server with GUI up and running!");});
-
+});
