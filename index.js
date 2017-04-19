@@ -9,49 +9,57 @@ var db = new DataStore({filename: dbFileName,autoload: true});
 */
 var dbProjects = require(path.join(__dirname, "projects.js"));
 
-/*
-db.insert([{
-        id: "1",
-        titulo: "Proyecto 1",
-        resumen: "Resumen proyecto 1",
-        objetivo: "Objetivo proyecto 1",
-        universidad: "Universidad de Sevilla",
-        grupo: "G11",
-        investigador: "Pepe Sanchez",
-        presupuesto: "11000"
-    }, {
-        id: "2",
-        titulo: "Proyecto 2",
-        resumen: "Resumen proyecto 2",
-        objetivo: "Objetivo proyecto 2",
-        universidad: "Universidad de Cadiz",
-        grupo: "G22",
-        investigador: "Antonio Ramirez",
-        presupuesto: "12000"
-    }]);
-*/
+var users = require("./users.js");
+var passport = require('passport'),
+    BasicStrategy = require('passport-http').BasicStrategy,
+    LocalAPIKey = require('passport-localapikey').Strategy;
+    
+passport.use(new BasicStrategy(
+    function(username, password, done) {
+        users.findOne({ username: username }, function (err, user) {
+          if (err) { return done(err); }
+          if (!user) { return done(null, false); }
+          if (!user.validPassword(password)) { return done(null, false); }
+          return done(null, user);
+        });
+        
+    }
+));
+
+passport.use(new LocalAPIKey(
+  function(apikey, done) {
+    users.findOne({ apikey: apikey }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      return done(null, user);
+    });
+  }    
+));
 
 var port = (process.env.PORT || 3000);
 var app = express();
 var baseAPI = "/api/v1";
 
-app.use(bodyParser.json());
-
 app.use("/",express.static(path.join(__dirname, "public")));
+app.use(bodyParser.json());
+app.use(passport.initialize());
 
 //Projects
 
-app.get(baseAPI + "/projects", (request,response) => {
-    console.log("GET projects");
-    //var projects;
-    /*
-    db.find({}, (err, projects) => {
-        response.send(projects);
-    });
-    */
-    dbProjects.allProjects((err, projects) => {
-        response.send(projects);
-    });
+app.get(baseAPI + "/projects", 
+    //passport.authenticate("basic", {session:false}),
+    passport.authenticate("localapikey", {session:false}),
+    (request,response) => {
+        console.log("GET projects");
+        //var projects;
+        /*
+        db.find({}, (err, projects) => {
+            response.send(projects);
+        });
+        */
+        dbProjects.allProjects((err, projects) => {
+            response.send(projects);
+        });
 });
     
 app.post(baseAPI + "/projects", (request,response) => {
@@ -155,9 +163,16 @@ app.delete(baseAPI + "/projects/:id", (request,response) => {
             console.log("Could not connect with MongoDB");
             process.exist(1);
         }
-        app.listen(port, () => {console.log("Server with GUI up and running!");
-        
     });
+    users.connectDb((err) => {
+        if(err){
+            console.log("Could not connect with MongoDB");
+            process.exist(1);
+        }
+    });
+    app.listen(port, () => {console.log("Server with GUI up and running!");
+        
+    
 
 
 });
