@@ -7,7 +7,9 @@ var db;
 var DBProjects = function() {};
 
 DBProjects.prototype.connectDb = function(callback) {
-    MongoClient.connect("mongodb://aws1617-01:aws1617-01@ds027165.mlab.com:27165/aws1617-01", function(err, database) {
+    
+    //MongoClient.connect("mongodb://aws1617-01:aws1617-01@ds027165.mlab.com:27165/aws1617-01", function(err, database) {
+    MongoClient.connect(process.env.MONGODB_URL, function(err, database) {
         if(err) {
             callback(err);
         }
