@@ -13,7 +13,8 @@ var users = require("./users.js");
 var passport = require('passport'),
     BasicStrategy = require('passport-http').BasicStrategy,
     LocalAPIKey = require('passport-localapikey').Strategy;
-    
+var cors = require('cors');
+
 passport.use(new BasicStrategy(
     function(username, password, done) {
         users.findOne({ username: username }, function (err, user) {
@@ -40,6 +41,7 @@ var port = (process.env.PORT || 3000);
 var app = express();
 var baseAPI = "/api/v1";
 
+app.use(cors());
 app.use("/",express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 app.use(passport.initialize());
