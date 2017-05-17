@@ -18,7 +18,7 @@ angular.module("ProjectListApp").controller("ListCtrl", function($scope,$http) {
     
     $scope.addProject = function () {
       console.log($scope.newProject);  
-      $http.put("/api/v1/projects/" + $scope.newProject.id, $scope.newProject).then(
+      $http.post("/api/v1/projects", $scope.newProject).then(
     function (response) {
     // This function handles success
         reset();
@@ -26,10 +26,10 @@ angular.module("ProjectListApp").controller("ListCtrl", function($scope,$http) {
     }, 
     function (response) {
     // this function handles error
-         $http.post("/api/v1/projects",$scope.newProject).then(function (){
+       $http.put("/api/v1/projects",$scope.newProject).then(function (){
              reset();
             refresh();
-            });
+        });
     });
       
     };

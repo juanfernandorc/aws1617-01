@@ -50,7 +50,7 @@ app.use(passport.initialize());
 
 app.get(baseAPI + "/projects", 
     //passport.authenticate("basic", {session:false}),
-    passport.authenticate("localapikey", {session:false}),
+    //passport.authenticate("localapikey", {session:false}),
     (request,response) => {
         console.log("GET projects");
         //var projects;
