@@ -2,7 +2,7 @@
 
 var MongoClient = require('mongodb').MongoClient;
 var proj;
-var invest;
+//var invest;
 
 
 var DBProjects = function() {};
