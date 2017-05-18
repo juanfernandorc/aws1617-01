@@ -48,54 +48,121 @@ app.use(passport.initialize());
 
 //Projects
 
-app.get(baseAPI + "/projects", 
+    app.get(baseAPI + "/projects", 
     //passport.authenticate("basic", {session:false}),
     //passport.authenticate("localapikey", {session:false}),
-    (request,response) => {
-        console.log("GET projects");
-        //var projects;
+        (request,response) => {
+            console.log("GET projects");
+            //var projects;
+            /*
+            db.find({}, (err, projects) => {
+                response.send(projects);
+            });
+            */
+            dbProjects.allProjects((err, projects) => {
+                response.send(projects);
+            });
+    });
+    
+    app.post(baseAPI + "/projects", (request,response) => {
+        console.log("POST /projects");
+        var project = request.body;
         /*
-        db.find({}, (err, projects) => {
-            response.send(projects);
+        db.insert(project);
+        */
+        dbProjects.add(project);
+        response.sendStatus(201);
+    });
+    
+    app.delete(baseAPI + "/projects", (request,response) => {
+        console.log("DELETE /projects");
+        /*
+        db.remove({},{multi: true},(err,numRemoved) => {
+            console.log("Projects deleted:" + numRemoved);
+            response.sendStatus(200);
         });
         */
-        dbProjects.allProjects((err, projects) => {
-            response.send(projects);
+        dbProjects.removeAll((err,numRemoved) => {
+            console.log("Projects deleted:" + numRemoved);
+            response.sendStatus(200);
         });
-});
-    
-app.post(baseAPI + "/projects", (request,response) => {
-    console.log("POST /projects");
-    var project = request.body;
-    /*
-    db.insert(project);
-    */
-    dbProjects.add(project);
-    response.sendStatus(201);
-});
-    
-app.delete(baseAPI + "/projects", (request,response) => {
-    console.log("DELETE /projects");
-    /*
-    db.remove({},{multi: true},(err,numRemoved) => {
-        console.log("Projects deleted:" + numRemoved);
-        response.sendStatus(200);
     });
-    */
-    dbProjects.removeAll((err,numRemoved) => {
-        console.log("Projects deleted:" + numRemoved);
-        response.sendStatus(200);
-    });
-});
     
-//Project
+    //Project
 
-app.get(baseAPI + "/projects/:id", (request,response) => {
-    var id = request.params.id;
-    console.log("GET /projects/" + id);
+    app.get(baseAPI + "/projects/:id", (request,response) => {
+        var id = request.params.id;
+        console.log("GET /projects/" + id);
+        
+        /*
+        db.find({id:id},(err,projects)=>{
+            if (projects.length === 0) {
+                response.sendStatus(404);
+            }
+            else {
+                response.send(projects);  
+            }
+        });
+        */
+        dbProjects.get(id,(err,projects)=>{
+            if (projects.length === 0) {
+                response.sendStatus(404);
+            }
+            else {
+                response.send(projects);  
+            }
+        });
     
-    /*
-    db.find({id:id},(err,projects)=>{
+    });
+    
+    app.put(baseAPI + "/projects/:id", (request,response) => {
+        var id = request.params.id;
+        console.log("UPDATE /projects/" + id);
+        var updatedProject = request.body;
+        /*
+        db.update({id:id},updatedProject,{},(err,numUpdates) => {
+            console.log("Projects updated:"+numUpdates);
+            if (numUpdates === 0) {
+                response.sendStatus(404);    
+            }
+            else {
+                response.sendStatus(200);    
+            }
+        });
+        */
+        dbProjects.update(id,updatedProject, (err,numUpdates) => {
+            console.log("Projects updated:"+numUpdates);
+            if (numUpdates === 0) {
+                response.sendStatus(404);    
+            }
+            else {
+                response.sendStatus(200);    
+            }
+        });
+    });
+    
+    app.delete(baseAPI + "/projects/:id", (request,response) => {
+        var id = request.params.id;
+        console.log("DELETE /projects/" + id);
+        /*
+        db.remove({id:id},{ multi: true},(err,numRemoved)=>{
+            console.log("Projects removed:"+numRemoved);
+            response.sendStatus(200);    
+        });
+        */
+        dbProjects.remove(id,(err,numRemoved)=>{
+            console.log("Projects removed:"+numRemoved);
+            response.sendStatus(200);    
+        });
+    
+    });
+    
+app.get(baseAPI + "/projectsbyuniversity/:universidad", function (request, response) {
+    //var id_university = parseInt(request.params.universidad);
+    var id_university = request.params.universidad;
+    console.log("GET /projectsbyuniversity/" + id_university);
+    
+    dbProjects.getProjectbyUniversity(id_university,(err,projects)=>{
         if (projects.length === 0) {
             response.sendStatus(404);
         }
@@ -103,62 +170,8 @@ app.get(baseAPI + "/projects/:id", (request,response) => {
             response.send(projects);  
         }
     });
-    */
-    dbProjects.get(id,(err,projects)=>{
-        if (projects.length === 0) {
-            response.sendStatus(404);
-        }
-        else {
-            response.send(projects);  
-        }
-    });
     
-    });
-    
-app.put(baseAPI + "/projects/:id", (request,response) => {
-    var id = request.params.id;
-    console.log("UPDATE /projects/" + id);
-    var updatedProject = request.body;
-    /*
-    db.update({id:id},updatedProject,{},(err,numUpdates) => {
-        console.log("Projects updated:"+numUpdates);
-        if (numUpdates === 0) {
-            response.sendStatus(404);    
-        }
-        else {
-            response.sendStatus(200);    
-        }
-    });
-    */
-    dbProjects.update(id,updatedProject, (err,numUpdates) => {
-        console.log("Projects updated:"+numUpdates);
-        if (numUpdates === 0) {
-            response.sendStatus(404);    
-        }
-        else {
-            response.sendStatus(200);    
-        }
-    });
-    
-    
-    });
-    
-app.delete(baseAPI + "/projects/:id", (request,response) => {
-    var id = request.params.id;
-    console.log("DELETE /projects/" + id);
-    /*
-    db.remove({id:id},{ multi: true},(err,numRemoved)=>{
-        console.log("Projects removed:"+numRemoved);
-        response.sendStatus(200);    
-    });
-    */
-    
-    dbProjects.remove(id,(err,numRemoved)=>{
-        console.log("Projects removed:"+numRemoved);
-        response.sendStatus(200);    
-    });
-    
-    });
+});
     
     dbProjects.connectDb((err) => {
         if(err){

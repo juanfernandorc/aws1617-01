@@ -17,27 +17,27 @@ angular.module("ProjectListApp").controller("ListCtrl", function($scope,$http) {
     }
     
     $scope.addProject = function () {
-      console.log($scope.newProject);  
-      $http.post("/api/v1/projects", $scope.newProject).then(
-    function (response) {
-    // This function handles success
-        reset();
-        refresh();
-    }, 
-    function (response) {
-    // this function handles error
-       $http.put("/api/v1/projects",$scope.newProject).then(function (){
-             reset();
-            refresh();
+        console.log($scope.newProject);  
+        $http.post("/api/v1/projects", $scope.newProject).then(
+            function (response) {
+            // This function handles success
+                reset();
+                refresh();
+            }, 
+            function (response) {
+            // this function handles error
+               $http.put("/api/v1/projects",$scope.newProject).then(function (){
+                     reset();
+                    refresh();
+            });
         });
-    });
       
     };
     
     $scope.deleteProjects = function () {
-      $http.delete("/api/v1/projects").then(function (){
-                 reset();
-        refresh();
+        $http.delete("/api/v1/projects").then(function (){
+            reset();
+            refresh();
         });
     };
     
@@ -54,7 +54,7 @@ angular.module("ProjectListApp").controller("ListCtrl", function($scope,$http) {
                 // this function handles error
                  reset();
                  refresh();
-            });
+        });
     };
     
     $scope.getProject = function () 
@@ -69,7 +69,7 @@ angular.module("ProjectListApp").controller("ListCtrl", function($scope,$http) {
             function (response) {
                 // this function handles error
                 $scope.projects = [];
-            });
+        });
     };
 
     $scope.getProjects = function () 
@@ -96,22 +96,25 @@ angular.module("ProjectListApp").controller("ListCtrl", function($scope,$http) {
     
     $scope.getProjectsUni = function () 
     {
-        $http.get("/api/v1/projects/" + $scope.newProject.universidad).then(function (response) {
+        $http.get("/api/v1/projectsbyuniversity/" + $scope.newProject.universidad).then(
+                function (response) {
                  // This function handles success
-                var resultProjects = response.data;
-                $scope.projects = [];
-                $scope.projects = resultProjects;
-            }
-            ,
-            function (response) {
-                // this function handles error
-                $scope.projects = [];
-            });
+                    var resultProjects = response.data;
+                    $scope.projects = [];
+                    $scope.projects = resultProjects;
+                }
+                ,
+                function (response) {
+                    // this function handles error
+                    $scope.projects = [];
+                }
+        );
     };
     
     $scope.getProjectsGru = function () 
     {
-        $http.get("/api/v1/projects/" + $scope.newProject.universidad).then(function (response) {
+        $http.get("/api/v1/projects/" + $scope.newProject.grupo).then(
+            function (response) {
                  // This function handles success
                 var resultProjects = response.data;
                 $scope.projects = [];
@@ -121,12 +124,14 @@ angular.module("ProjectListApp").controller("ListCtrl", function($scope,$http) {
             function (response) {
                 // this function handles error
                 $scope.projects = [];
-            });
+            }
+        );
     };
     
      $scope.getProjectsInv = function () 
     {
-        $http.get("/api/v1/projects/" + $scope.newProject.universidad).then(function (response) {
+        $http.get("/api/v1/projects/" + $scope.newProject.investigador).then(
+            function (response) {
                  // This function handles success
                 var resultProjects = response.data;
                 $scope.projects = [];
@@ -136,7 +141,8 @@ angular.module("ProjectListApp").controller("ListCtrl", function($scope,$http) {
             function (response) {
                 // this function handles error
                 $scope.projects = [];
-            });
+            }
+        );
     };
     
     refresh();

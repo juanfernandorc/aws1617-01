@@ -38,6 +38,10 @@ DBProjects.prototype.get = function(id, callback) {
     return proj.find({id:id}).toArray(callback);
 };
 
+DBProjects.prototype.getProjectbyUniversity = function(id_university, callback) {
+    return proj.find({universidad:id_university}).toArray(callback);
+};
+
 DBProjects.prototype.remove = function(id, callback) {
     return proj.remove({id:id},{ multi: true}, callback);
 };
