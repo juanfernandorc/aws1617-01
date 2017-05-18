@@ -94,5 +94,50 @@ angular.module("ProjectListApp").controller("ListCtrl", function($scope,$http) {
             });
     };
     
+    $scope.getProjectsUni = function () 
+    {
+        $http.get("/api/v1/projects/" + $scope.newProject.universidad).then(function (response) {
+                 // This function handles success
+                var resultProjects = response.data;
+                $scope.projects = [];
+                $scope.projects = resultProjects;
+            }
+            ,
+            function (response) {
+                // this function handles error
+                $scope.projects = [];
+            });
+    };
+    
+    $scope.getProjectsGru = function () 
+    {
+        $http.get("/api/v1/projects/" + $scope.newProject.universidad).then(function (response) {
+                 // This function handles success
+                var resultProjects = response.data;
+                $scope.projects = [];
+                $scope.projects = resultProjects;
+            }
+            ,
+            function (response) {
+                // this function handles error
+                $scope.projects = [];
+            });
+    };
+    
+     $scope.getProjectsInv = function () 
+    {
+        $http.get("/api/v1/projects/" + $scope.newProject.universidad).then(function (response) {
+                 // This function handles success
+                var resultProjects = response.data;
+                $scope.projects = [];
+                $scope.projects = resultProjects;
+            }
+            ,
+            function (response) {
+                // this function handles error
+                $scope.projects = [];
+            });
+    };
+    
     refresh();
 });
