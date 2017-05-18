@@ -9,10 +9,13 @@
         <script type="text/javascript" src="list-ctrl.js"></script>
     </head>
     <body>
-        <h1>Proyectos</h1>
-        <table class="table" ng-controller="ListCtrl">
+<!--
+        <table class="table table-striped" ng-controller="ListCtrl">
             <thead>
                 <tr>
+                    <th colspan="8" class="jumbotron text-center"><h1>Proyectos: <span class="label label-success">{{ projects.length }}</span></h1></th>
+                </tr>
+                <tr class="info">
                     <th>Id Proyecto</th>
                     <th>Título</th>
                     <th>Resumen</th>
@@ -24,41 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><input class="form-control" type="text" ng-model="newProject.id"/></td>
-                    <td><input class="form-control" type="text" ng-model="newProject.titulo"/></td>
-                    <td><input class="form-control" type="text" ng-model="newProject.resumen"/></td>
-                    <td><input class="form-control" type="text" ng-model="newProject.objetivo"/></td>
-                    <td><input class="form-control" type="text" ng-model="newProject.universidad"/></td>
-                    <td><input class="form-control" type="text" ng-model="newProject.grupo"/></td>
-                    <td><input class="form-control" type="text" ng-model="newProject.investigador" ng-list/></td>
-                    <td><input class="form-control" type="text" ng-model="newProject.presupuesto"/></td>
-                </tr>
-                <!-- -->
-                <tr>
-                    <td colspan="8">
-                        <B>Actions:</B>
-                        <button class="btn btn-primary" ng-click="addProject()">Insertar</button>
-                        <button class="btn btn-primary" ng-click="actualizaProjects()">Actualizar</button>
-                        <button class="btn btn-primary" ng-click="deleteProject()">Borrar</button>
-                        <button class="btn btn-primary" ng-click="getProject()">Buscar Id</button>
-                        <button class="btn btn-primary" ng-click="getProjects()">Mostrar Todo</button>
-                    </td>
-                </tr>
-                <!-- -->
-                <!--
-                <tr>
-                    <td colspan="8">
-                        <B>Actions:</B>
-                        <button class="btn btn-primary" ng-click="addProject()">Insert</button>
-                        <button class="btn btn-primary" ng-click="actualizaProjects()">Update</button>
-                        <button class="btn btn-primary" ng-click="deleteProject()">Delete</button>
-                        <button class="btn btn-primary" ng-click="getProject()">Find Id</button>
-                        <button class="btn btn-primary" ng-click="getProjects()">Show All</button>
-                    </td>
-                </tr>
-                -->
-                <tr ng-repeat="project in projects">
+                <tr ng-repeat="project in projects" class="table-striped">
                     <td>{{project.id}}</td>
                     <td>{{project.titulo}}</td>
                     <td>{{project.resumen}}</td>
@@ -68,18 +37,70 @@
                     <td>{{project.investigador}}</td>
                     <td>{{project.presupuesto}}</td>
                 </tr>
-                 <tr>
+                <tr>
+                     <td colspan="8" align="center">
+                    <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input class="form-control input-lg" placeholder="Id" type="text" ng-model="newProject.id"/>
+                    </div>
+                    <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-info-sign"></i></span>
+                    <input class="form-control input-lg" placeholder="Título" type="text" ng-model="newProject.titulo"/>
+                    </div>
+                    <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-info-sign"></i></span>
+                    <input class="form-control input-lg" placeholder="Resumen" type="text" ng-model="newProject.resumen"/>
+                    </div>
+                    <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-info-sign"></i></span>
+                    <input class="form-control input-lg" placeholder="Objetivo" type="text" ng-model="newProject.objetivo"/>
+                    </div>
+                    <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                    <input class="form-control input-lg" placeholder="Universidad" type="text" ng-model="newProject.universidad"/>
+                    </div>
+                    <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                    <input class="form-control input-lg" placeholder="Grupo" type="text" ng-model="newProject.grupo"/>
+                    </div>
+                    <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <input class="form-control input-lg" placeholder="Investigadores" type="text" ng-model="newProject.investigador" ng-list/>
+                    </div>
+                    <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-eur"></i></span>
+                    <input class="form-control input-lg" placeholder="Presupuesto" type="text" ng-model="newProject.presupuesto"/>
+                    </div>
+                     </td>
+                </tr>
+                <tr>
+                    <td colspan="8" align="center">
+                        <button class="btn btn-primary btn-success btn-lg" ng-click="addProject()">Insertar</button>
+                        <button class="btn btn-primary btn-warning btn-lg" ng-click="actualizaProjects()">Actualizar</button>
+                        <button class="btn btn-primary btn-danger btn-lg" ng-click="deleteProject()">Borrar</button>
+                        <button class="btn btn-primary btn-danger btn-lg" ng-click="deleteProjects()">Borrar Todo</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="8"  align="center">
+                        <button class="btn btn-primary btn-info btn-lg" ng-click="getProject()">Buscar Id</button>
+                        <button class="btn btn-primary btn-info btn-lg" ng-click="getProjects()">Mostrar Todo</button>
+                        <button class="btn btn-primary btn-info btn-lg" ng-click="getProjectsUni()">Buscar Proyectos Uni</button>
+                        <button class="btn btn-primary btn-info btn-lg" ng-click="getProjectsGru()">Buscar Proyectos Gru</button>
+                        <button class="btn btn-primary btn-info btn-lg" ng-click="getProjectsInv()">Buscar Proyectos Inv</button>
+                    </td>
+                </tr>
+                <tr>
                     <td colspan="8">
-                        <button class="btn btn-primary" ng-click="deleteProjects()">Borrar Todo</button>
+                       <a href="./api/v1/tests.html" class="btn btn-default">Link Acceso a Tests Postman</a>
                     </td>
                 </tr>
                 
-                <tr>
-                    <td colspan="8">
-                       <a href="./api/v1/tests.html">Link Acceso a Tests Postman</a>
-                    </td>
-                </tr>
-                <!--
+            </tbody>
+        </table>
+-->
+
+<!--
                  <tr>
                     <td colspan="8">
                             <div class="postman-run-button" data-postman-action="collection/import" data-postman-var-1="dda4bfb13874abe4368e"/>
@@ -95,7 +116,137 @@
                     </td>
                 </tr>
                  -->
-            </tbody>
-        </table>
+<!--
+                <tr class="default">
+                    <th>Id Proyecto</th>
+                    <th>Título</th>
+                    <th>Resumen</th>
+                    <th>Objetivo</th>
+                    <th>Universidad</th>
+                    <th>Grupo</th>
+                    <th>Investigador</th>
+                    <th>Presupuesto</th>
+                </tr>
+                <tr>
+                    <td><input class="form-control input-lg" placeholder="Id" type="text" ng-model="newProject.id"/></td>
+                    <td><input class="form-control input-lg" placeholder="Título" type="text" ng-model="newProject.titulo"/></td>
+                    <td><input class="form-control input-lg" placeholder="Resumen" type="text" ng-model="newProject.resumen"/></td>
+                    <td><input class="form-control input-lg" placeholder="Objetivo" type="text" ng-model="newProject.objetivo"/></td>
+                    <td><input class="form-control input-lg" placeholder="Universidad" type="text" ng-model="newProject.universidad"/></td>
+                    <td><input class="form-control input-lg" placeholder="Grupo" type="text" ng-model="newProject.grupo"/></td>
+                    <td><input class="form-control input-lg" placeholder="Investigadores" type="text" ng-model="newProject.investigador" ng-list/></td>
+                    <td><input class="form-control input-lg" placeholder="Presupuesto" type="text" ng-model="newProject.presupuesto"/></td>
+                </tr>
+    -->
+                <!-- -->
+        
+        <!-- ---------------------- -->
+
+<div class="container" ng-controller="ListCtrl">
+    <BR>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="row text-center">
+        <div class="col-sm-12" align="center">
+            <h1>Proyectos: <span class="label label-default">{{ projects.length }}</span></h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+  <div class="panel-heading">
+        <div class="row">
+          <div class="col-sm-7">
+            <table>
+                <thead>
+                <tr class="default">
+                        <th>Id Proyecto</th>
+                        <th>Título</th>
+                        <th>Resumen</th>
+                        <th>Objetivo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input class="form-control" placeholder="Id" type="text" ng-model="newProject.id"/></td>
+                        <td><input class="form-control" placeholder="Título" type="text" ng-model="newProject.titulo"/></td>
+                        <td><input class="form-control" placeholder="Resumen" type="text" ng-model="newProject.resumen"/></td>
+                        <td><input class="form-control" placeholder="Objetivo" type="text" ng-model="newProject.objetivo"/></td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
+          <div class="col-sm-5">
+                            <button class="btn btn-success" ng-click="addProject()">Insertar</button>
+                            <button class="btn btn-primary btn-warning" ng-click="actualizaProjects()">Actualizar</button>
+                            <button class="btn btn-primary btn-danger" ng-click="deleteProject()">Borrar</button>
+                            <button class="btn btn-primary btn-danger" ng-click="deleteProjects()">Borrar Todo</button>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-7">
+                <table>
+                    <thead>
+                        <tr class="default">
+                            <th>Universidad</th>
+                            <th>Grupo</th>
+                            <th>Investigador</th>
+                            <th>Presupuesto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input class="form-control" placeholder="Universidad" type="text" ng-model="newProject.universidad"/></td>
+                            <td><input class="form-control" placeholder="Grupo" type="text" ng-model="newProject.grupo"/></td>
+                            <td><input class="form-control" placeholder="Investigadores" type="text" ng-model="newProject.investigador" ng-list/></td>
+                            <td><input class="form-control" placeholder="Presupuesto" type="text" ng-model="newProject.presupuesto"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-5">
+                            <button class="btn btn-primary btn-info" ng-click="getProject()">Find Id</button>
+                            <button class="btn btn-primary btn-info" ng-click="getProjects()">Find All</button>
+                            <button class="btn btn-primary btn-info" ng-click="getProjectsUni()">Find Uni</button>
+                            <button class="btn btn-primary btn-info" ng-click="getProjectsGru()">Find Gru</button>
+                            <button class="btn btn-primary btn-info" ng-click="getProjectsInv()">Find Inv</button>
+                            <a href="./api/v1/tests.html" class="btn btn-default">Link Acceso a Tests Postman</a>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row col-sm-12" align="center">
+            <br>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr class="info">
+                        <th>Id Proyecto</th>
+                        <th>Título</th>
+                        <th>Resumen</th>
+                        <th>Objetivo</th>
+                        <th>Universidad</th>
+                        <th>Grupo</th>
+                        <th>Investigador</th>
+                        <th>Presupuesto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="project in projects" class="table-striped">
+                        <td>{{project.id}}</td>
+                        <td>{{project.titulo}}</td>
+                        <td>{{project.resumen}}</td>
+                        <td>{{project.objetivo}}</td>
+                        <td>{{project.universidad}}</td>
+                        <td>{{project.grupo}}</td>
+                        <td>{{project.investigador}}</td>
+                        <td>{{project.presupuesto}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+  </div>
+</div>
+    <!-- ---------------------- -->
     </body>
 </html>
