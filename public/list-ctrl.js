@@ -113,7 +113,7 @@ angular.module("ProjectListApp").controller("ListCtrl", function($scope,$http) {
     
     $scope.getProjectsGru = function () 
     {
-        $http.get("/api/v1/projects/" + $scope.newProject.grupo).then(
+        $http.get("/api/v1/projectsbygroup/" + $scope.newProject.grupo).then(
             function (response) {
                  // This function handles success
                 var resultProjects = response.data;

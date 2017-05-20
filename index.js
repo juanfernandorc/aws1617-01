@@ -157,21 +157,37 @@ app.use(passport.initialize());
     
     });
     
-app.get(baseAPI + "/projectsbyuniversity/:universidad", function (request, response) {
-    //var id_university = parseInt(request.params.universidad);
-    var id_university = request.params.universidad;
-    console.log("GET /projectsbyuniversity/" + id_university);
-    
-    dbProjects.getProjectbyUniversity(id_university,(err,projects)=>{
-        if (projects.length === 0) {
-            response.sendStatus(404);
-        }
-        else {
-            response.send(projects);  
-        }
+    app.get(baseAPI + "/projectsbyuniversity/:universidad", function (request, response) {
+        //var id_university = parseInt(request.params.universidad);
+        var id_university = request.params.universidad;
+        console.log("GET /projectsbyuniversity/" + id_university);
+        
+        dbProjects.getProjectbyUniversity(id_university,(err,projects)=>{
+            if (projects.length === 0) {
+                response.sendStatus(404);
+            }
+            else {
+                response.send(projects);  
+            }
+        });
+        
     });
     
-});
+    app.get(baseAPI + "/projectsbygroup/:grupo", function (request, response) {
+        //var id_university = parseInt(request.params.grupo);
+        var id_grupo = request.params.grupo;
+        console.log("GET /projectsbygroup/" + id_grupo);
+        
+        dbProjects.getProjectbyGroup(id_grupo,(err,projects)=>{
+            if (projects.length === 0) {
+                response.sendStatus(404);
+            }
+            else {
+                response.send(projects);  
+            }
+        });
+        
+    });
     
     dbProjects.connectDb((err) => {
         if(err){

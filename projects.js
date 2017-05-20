@@ -10,6 +10,8 @@ var DBProjects = function() {};
 DBProjects.prototype.connectDb = function(callback) {
     
     //MongoClient.connect("mongodb://aws1617-01:aws1617-01@ds027165.mlab.com:27165/aws1617-01", function(err, database) {
+    //MongoClient.connect("mongodb://127.0.0.1:27017/aws", function(err, database) {
+    
     MongoClient.connect(process.env.MONGODB_URL, function(err, database) {
         if(err) {
             callback(err);
@@ -40,6 +42,10 @@ DBProjects.prototype.get = function(id, callback) {
 
 DBProjects.prototype.getProjectbyUniversity = function(id_university, callback) {
     return proj.find({universidad:id_university}).toArray(callback);
+};
+
+DBProjects.prototype.getProjectbyGroup = function(id_grupo, callback) {
+    return proj.find({grupo:id_grupo}).toArray(callback);
 };
 
 DBProjects.prototype.remove = function(id, callback) {
