@@ -188,7 +188,23 @@ app.use(passport.initialize());
         });
         
     });
+
+    app.get(baseAPI + "/projectsbyresearcher/:investigador", function (request, response) {
+        var id_researcher = request.params.investigador;
+        console.log("GET /projectsbyresearcher/" + id_researcher);
+        
+        dbProjects.getProjectbyResearcher(id_researcher,(err,projects)=>{
+            if (projects.length === 0) {
+                response.sendStatus(404);
+            }
+            else {
+                response.send(projects);  
+            }
+        });
+        
+    });
     
+
     dbProjects.connectDb((err) => {
         if(err){
             console.log("Could not connect with MongoDB");

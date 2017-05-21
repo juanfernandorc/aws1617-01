@@ -48,6 +48,10 @@ DBProjects.prototype.getProjectbyGroup = function(id_grupo, callback) {
     return proj.find({grupo:id_grupo}).toArray(callback);
 };
 
+DBProjects.prototype.getProjectbyResearcher = function(id_researcher, callback) {
+    return proj.find({investigador:id_researcher}).toArray(callback);
+};
+
 DBProjects.prototype.remove = function(id, callback) {
     return proj.remove({id:id},{ multi: true}, callback);
 };

@@ -1,8 +1,11 @@
-angular.module("ProjectListApp").controller("ListCtrl", function($scope,$http) {
-     
-    function refresh() {   
-    $http.get("/api/v1/projects").then(function (response){
-        $scope.projects = response.data;
+angular.module("ProjectListApp")
+.controller("ListCtrl", function($scope,$http) {
+    
+    function refresh() {  
+        console.log("-- Refresh() -- " );
+        $http.get("/api/v1/projects").then(function (response){
+            $scope.projects = response.data;
+            console.log("Projects: " + response.data);
         });
     }
     function reset(){
@@ -130,7 +133,7 @@ angular.module("ProjectListApp").controller("ListCtrl", function($scope,$http) {
     
      $scope.getProjectsInv = function () 
     {
-        $http.get("/api/v1/projects/" + $scope.newProject.investigador).then(
+        $http.get("/api/v1/projectsbyresearcher/" + $scope.newProject.investigador).then(
             function (response) {
                  // This function handles success
                 var resultProjects = response.data;
@@ -146,4 +149,4 @@ angular.module("ProjectListApp").controller("ListCtrl", function($scope,$http) {
     };
     
     refresh();
-});
+});        
