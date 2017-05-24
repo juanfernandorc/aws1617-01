@@ -13,22 +13,42 @@
     <!-- new projects crud ---------------------- -->
     <!-- end new projects crud---------------------- -->
     
-    <div class="container" ng-controller="INEData" style="margin-top:50px">
+    <div class="container" ng-controller="InvData" style="margin-top:50px">
         <div class="panel panel-default">
-           <!-- <div class="panel-heading">INE (Instituto Nacional de Estadística) Operaciones Disponibles API JSON</div> -->
             <div class="panel-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Nombre</th>
-                            </tr>
-                        </thead>
-                        <tr ng-repeat="operation in operations">
-                            <td>{{operation.Id}}</td>
-                            <td>{{operation.Nombre}}</td>
-                        </tr>
-                    </table>
+                <div class="row">
+                    <div class="col-sm-7">
+                                <td><input class="form-control" placeholder="ORCID" type="text" ng-model="searchOrcid"/></td>
+                    </div>
+                    <div class="col-sm-5">
+                                <button class="btn btn-primary btn-info" ng-click="getInvData()">Buscar Investigador</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <BR>
+                </div>        
+                <div class="row">
+                    <div class="col-sm-12">
+                    <!-- ini INE API JSON ---------------------- -->
+                	<div class="panel panel-warning" width="100%">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                            Datos del Investigador
+                                            </h4>
+                                        </div>
+                                        <div class="panel-collapse">
+                                            <div class="panel-body">
+                                                <div style="text-align:center;padding:1em 0;">
+                                                    <BR>
+                                                    <span style="color:gray;">ORCID: </span> {{$scope.searchOrcid}}
+                                                    <BR>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                    <!-- Fin INE API JSON ---------------------- -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
