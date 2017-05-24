@@ -62,7 +62,7 @@
             </table>
           </div>
           <div class="col-sm-5">
-                            <p><span class="label label-info">Acciones sobre Proyectos</span></p>
+                            <h3><span class="label label-default">Acciones sobre Proyectos</span></h3>
                             <button class="btn btn-success" ng-click="addProject()">Insertar</button>
                             <button class="btn btn-primary btn-warning" ng-click="actualizaProjects()">Actualizar</button>
                             <button class="btn btn-primary btn-danger" ng-click="deleteProject()">Borrar</button>
@@ -92,11 +92,12 @@
                 </table>
             </div>
             <div class="col-sm-5">
-                            <button class="btn btn-primary btn-info" ng-click="getProject()">FindById</button>
-                            <button class="btn btn-primary btn-info" ng-click="getProjects()">Find All</button>
-                            <button class="btn btn-primary btn-info" ng-click="getProjectsUni()">FindByUni</button>
-                            <button class="btn btn-primary btn-info" ng-click="getProjectsGru()">FindByGru</button>
-                            <button class="btn btn-primary btn-info" ng-click="getProjectsInv()">FindByInv</button>
+                            <h3><span class="label label-default">Buscar</span></h3>
+                            <button class="btn btn-primary btn-info" ng-click="getProject()">Por Id</button>
+                            <button class="btn btn-primary btn-info" ng-click="getProjects()">Todos</button>
+                            <button class="btn btn-primary btn-info" ng-click="getProjectsUni()">Por Uni</button>
+                            <button class="btn btn-primary btn-info" ng-click="getProjectsGru()">Por Gru</button>
+                            <button class="btn btn-primary btn-info" ng-click="getProjectsInv()">Por Inv</button>
                             <a href="./api/v1/tests" class="btn btn-default">Link Acceso a Tests Postman</a>
             </div>
         </div>
