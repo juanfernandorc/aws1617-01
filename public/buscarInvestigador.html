@@ -1,0 +1,38 @@
+<html ng-app="DatosInv">
+    <head>
+        <title>My app</title>
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" type="text/css" />
+        <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+        <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
+        <script type="text/javascript" src="inv-data-app.js"></script>
+        <script type="text/javascript" src="inv-ctrl.js"></script>
+    </head>
+    <body>
+        
+    <!-- new projects crud ---------------------- -->
+    <!-- end new projects crud---------------------- -->
+    
+    <div class="container" ng-controller="INEData" style="margin-top:50px">
+        <div class="panel panel-default">
+           <!-- <div class="panel-heading">INE (Instituto Nacional de Estadística) Operaciones Disponibles API JSON</div> -->
+            <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                            </tr>
+                        </thead>
+                        <tr ng-repeat="operation in operations">
+                            <td>{{operation.Id}}</td>
+                            <td>{{operation.Nombre}}</td>
+                        </tr>
+                    </table>
+            </div>
+        </div>
+    </div>
+
+    
+    </body>
+</html>
