@@ -43,6 +43,7 @@ var baseAPI = "/api/v1";
 
 app.use(cors());
 app.use("/",express.static(path.join(__dirname, "public")));
+app.use(baseAPI + '/tests', express.static(path.join(__dirname + '/public/tests.html')));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 
@@ -204,6 +205,23 @@ app.use(passport.initialize());
         
     });
     
+    app.get(baseAPI + "/projectsbyuniandgroup/:universidad"+"&"+":grupo", function (request, response) {
+//    app.get(baseAPI + "/projectsbyuniandgroup", function (request, response) {
+        //var id_university = parseInt(request.params.universidad);
+        var id_university = request.params.universidad; // "US"; //request.params.universidad;
+        var id_grupo = request.params.grupo; // "5921861c7233de0011769f0c"; //request.params.grupo;
+        console.log("GET /projectsbyuniandgroup/" + id_university + "&" + id_grupo);
+        
+        dbProjects.getProjectbyUniGru(id_university,id_grupo,(err,projects)=>{
+            if (projects.length === 0) {
+                response.sendStatus(404);
+            }
+            else {
+                response.send(projects);  
+            }
+        });
+        
+    });
 
     dbProjects.connectDb((err) => {
         if(err){

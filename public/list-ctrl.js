@@ -148,5 +148,23 @@ angular.module("ProjectListApp")
         );
     };
     
+    
+    $scope.getProjectsUniGru = function () 
+    {
+        $http.get("/api/v1/projectsbyuniandgroup/" + $scope.newProject.universidad+"&"+$scope.newProject._id).then(
+                function (response) {
+                 // This function handles success
+                    var resultProjects = response.data;
+                    $scope.projects = [];
+                    $scope.projects = resultProjects;
+                }
+                ,
+                function (response) {
+                    // this function handles error
+                    $scope.projects = [];
+                }
+        );
+    };
+    
     refresh();
 });        

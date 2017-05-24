@@ -48,6 +48,12 @@ DBProjects.prototype.getProjectbyGroup = function(id_grupo, callback) {
     return proj.find({grupo:id_grupo}).toArray(callback);
 };
 
+
+DBProjects.prototype.getProjectbyUniGru = function(id_university, id_grupo, callback) {
+    console.log("GET /projectsbyuniandgroup/" + id_university + "&" + id_grupo);
+    return proj.find({universidad:id_university,grupo:id_grupo}).toArray(callback);
+};
+
 DBProjects.prototype.getProjectbyResearcher = function(id_researcher, callback) {
     return proj.find({investigador:id_researcher}).toArray(callback);
 };

@@ -14,93 +14,48 @@
     </head>
     <body>
         
-        <!-- new projects crud ---------------------- -->
-<!--
-<div class="container" ng-controller="Universities">
-  <BR>
-  <div class="panel panel-default">
-      <div class="panel-heading" ng-controller="Universities">
-        <div class="row">
-          <div class="col-sm-12">
-              <p><span class="label label-info">Buscar Proyectos</span></p>
-                <div class="dropdown">
-                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Universidades
-                  <span class="caret"></span></button>
-                  <ul class="dropdown-menu">
-                    
-                    <li ng-repeat="university in universities">
-                        <a ng-model="newUniversity.acronym" value="{{university.acronym}}" ng-click="getGroups()">{{university.name}}</a> 
-                    </li>
-                  </ul>
-                </div>
-                <div class="dropdown">
-                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Grupos
-                  <span class="caret"></span></button>
-                  <ul class="dropdown-menu">
-                    <li ng-repeat="group in groups">
-                        <a href="{{group.id}}">{{group.name}}</a> 
-                    </li>
-                  </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-  </div>
-</div>
--->
+    <!-- new projects crud ---------------------- -->
     <!-- end new projects crud---------------------- -->
     
     <div class="container" ng-controller="Universities" style="margin-top:50px">
         <div class="panel panel-default">
-            <div class="panel-heading">Universities</div>
+            <div class="panel-heading">Search Projects by University & Group</div>
             <div class="panel-body">
-                <div class="ui-widget">
-                    <label>Please, select a university: </label>
-                    <select class="form-control" ng-model="selectedUniversity" ng-options="university.name for university in universities" ng-change="getUniversity()">
-                    </select>
-                    <p><h4 ng-bind="university_name"></h4></p>
+                <div class="col-sm-6">
+                    <div class="ui-widget">
+                        <label>University: </label>
+                        <select class="form-control" ng-model="selectedUniversity" ng-options="university.name for university in universities track by university.acronym" ng-change="getUniversity()">
+                        </select>
+                        <!-- <p><h4 ng-bind="university_name"></h4></p> -->
+                    </div>
                 </div>
-                <div class="ui-widget">
-                    <label>Please, select a group: </label>
-                    <select class="form-control" ng-model="selectedGroup" ng-options="group.name for group in groups" ng-change="getProjects()">
-                    </select>
-                    <p><h4 ng-bind="group_name"></h4></p>
+                <div class="col-sm-6">
+                    <div class="ui-widget">
+                        <label>Group: </label>
+                        <select class="form-control" ng-model="selectedGroup" ng-options="group.name for group in groups track by group._id" ng-change="getProjectsUniGru()">
+                        </select>
+                        <!-- <p><h4 ng-bind="group_name"></h4></p> -->
+                    </div>
                 </div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>University</th>
-                        </tr>
-                    </thead>
-                    <tr ng-repeat="group in groups">
-                        <td>{{group.id}}</td>
-                        <td>{{group.name}}</td>
-                        <td>{{group.description}}</td>
-                        <td>{{group.university}}</td>
-                    </tr>
-                    <table>
-                    </table>
+            </div>
+            <div class="panel-heading">Projects</div>
+            <div class="panel-body">
                     <table class="table">
-                    <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>titulo</th>
-                            <th>universidad</th>
-                            <th>grupo</th>
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>titulo</th>
+                                <th>universidad</th>
+                                <th>grupo</th>
+                            </tr>
+                        </thead>
+                        <tr ng-repeat="project in projects">
+                            <td>{{project.id}}</td>
+                            <td>{{project.titulo}}</td>
+                            <td>{{project.universidad}}</td>
+                            <td>{{project.grupo}}</td>
                         </tr>
-                    </thead>
-                    <tr ng-repeat="project in projects">
-                        <td>{{project.id}}</td>
-                        <td>{{project.titulo}}</td>
-                        <td>{{project.universidad}}</td>
-                        <td>{{project.grupo}}</td>
-                    </tr>
-                    <table>
                     </table>
-                </table>
             </div>
         </div>
     </div>
