@@ -1,0 +1,84 @@
+<html>
+
+<head>
+    <title>Universities App</title>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" type="text/css" />
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/bower_components/underscore/underscore.js"></script>
+
+    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script src="https://www.amcharts.com/lib/3/pie.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+   
+    <style type="text/css">
+        #chartdiv {
+            width: 100%;
+            height: 500px;
+        }
+        
+        .amcharts-export-menu-top-right {
+            top: 10px;
+            right: 0;
+        }
+    </style>
+<!-- widget ---------------------- -->
+    <script type="text/javascript">
+        $.getJSON('/api/v1/projects', function(data) {
+            var k = _.keys(_.countBy(data, function(data) {
+                return data.universidad;
+            }));
+            var v = _.countBy(data, function(data) {
+                return data.universidad;
+            });
+            var c = []
+            k.forEach(function(e) {
+                console.log(e);
+                c.push({
+                    value: v[e],
+                    title: e
+                });
+            });
+            console.log(c);
+                var chart = AmCharts.makeChart( "chartdiv", {
+                  "type": "pie",
+                  "theme": "light",
+                  "dataProvider": c,
+                  "titleField": "title",
+                  "valueField": "value",
+                  "labelRadius": 5,
+                
+                  "radius": "42%",
+                  "innerRadius": "60%",
+                  "labelText": "[[title]]",
+                  "export": {
+                    "enabled": true
+                  }
+                } );
+/*  w */
+        });
+    </script>
+<!-- fin widget ---------------------- -->
+
+</head>
+
+<body>
+
+
+    <div style="margin-top:50px" class="container">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Widget</div>
+            <div class="panel-body">
+                <h1>Widget</h1>
+                <div id="chartdiv"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
